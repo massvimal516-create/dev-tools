@@ -14,7 +14,7 @@ dist/
 .DS_Store
 .env
 .npm
-*.log
+*.log   
 
 # IDEs
 .vscode/
