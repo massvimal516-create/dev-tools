@@ -107,3 +107,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+window.clearContent = function (...ids) {
+    let cleared = false;
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.value = '';
+                cleared = true;
+            } else {
+                el.textContent = '';
+                el.innerHTML = '';
+                cleared = true;
+            }
+        }
+    });
+    if (cleared) showToast('Cleared!', 'info');
+};
+
+window.copyContent = function (id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const text = el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' ? el.value : el.textContent;
+    if (!text || text.trim() === '') {
+        showToast('Nothing to copy', 'error');
+        return;
+    }
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Copied to clipboard!');
+    }).catch(err => {
+        console.error(err);
+        showToast('Failed to copy', 'error');
+    });
+};

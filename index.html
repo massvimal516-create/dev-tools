@@ -85,6 +85,10 @@
                     <button onclick="formatJSON()"><i class="fa-solid fa-align-left"></i> Beautify</button>
                     <button onclick="minifyJSON()"><i class="fa-solid fa-compress"></i> Minify</button>
                     <button onclick="validateJSON()"><i class="fa-solid fa-check"></i> Validate</button>
+                    <button onclick="clearContent('jsonInput', 'jsonOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('jsonOutput')" class="btn-secondary"><i class="fa-solid fa-copy"></i>
+                        Copy</button>
                 </div>
                 <pre id="jsonOutput"></pre>
             </section>
@@ -100,6 +104,10 @@
                     <button onclick="urlDecode()">URL Decode</button>
                     <button onclick="htmlEncode()">HTML Encode</button>
                     <button onclick="htmlDecode()">HTML Decode</button>
+                    <button onclick="clearContent('encodingInput', 'encodingOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('encodingOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
                 </div>
                 <pre id="encodingOutput"></pre>
             </section>
@@ -115,6 +123,10 @@
                     <button onclick="sortLines()">Sort Lines</button>
                     <button onclick="addLineNumbers()">Add Line Numbers</button>
                     <button onclick="wordCharCount()">Count Stats</button>
+                    <button onclick="clearContent('textInput', 'textOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('textOutput')" class="btn-secondary"><i class="fa-solid fa-copy"></i>
+                        Copy</button>
                 </div>
 
                 <h3>Find & Replace</h3>
@@ -141,6 +153,10 @@
                     <button onclick="generateHash('SHA-256')">SHA-256</button>
                     <button onclick="generateHash('SHA-1')">SHA-1</button>
                     <button onclick="generateMD5()">MD5</button>
+                    <button onclick="clearContent('securityInput', 'securityOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('securityOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
                 </div>
 
                 <h3>Password Strength</h3>
@@ -176,7 +192,13 @@
                 </div>
                 <textarea id="apiBody" placeholder="Request Body (JSON)"
                     style="height: 120px; margin-bottom: 10px;"></textarea>
-                <button onclick="callApi()" style="width: 100%;">Send Request</button>
+                <div class="actions">
+                    <button onclick="callApi()" style="flex: 2;">Send Request</button>
+                    <button onclick="clearContent('apiBody', 'apiOutput')" class="btn-secondary" style="flex: 1;"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('apiOutput')" class="btn-secondary" style="flex: 1;"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
+                </div>
 
                 <h3>JSON Response Viewer</h3>
                 <pre id="apiOutput" style="min-height: 200px;"></pre>
@@ -191,6 +213,10 @@
                     <input id="unixInput" placeholder="Unix timestamp" style="flex: 1;" />
                     <button onclick="unixToDate()">To Date</button>
                     <button onclick="dateToUnix()">Now to Unix</button>
+                    <button onclick="clearContent('unixInput', 'datetimeOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('datetimeOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
                 </div>
 
                 <h3>ISO-8601</h3>
@@ -210,6 +236,10 @@
                 <div class="actions">
                     <button onclick="beautifyCSS()">Beautify</button>
                     <button onclick="minifyCSS()">Minify</button>
+                    <button onclick="clearContent('cssInput', 'frontendOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('frontendOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
                 </div>
 
                 <h3>Color Converter</h3>
@@ -238,6 +268,10 @@
                 <div class="actions">
                     <button onclick="minifyCode()">Minify (Simple)</button>
                     <button onclick="obfuscateCode()">Obfuscate</button>
+                    <button onclick="clearContent('codeInput', 'codeOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('codeOutput')" class="btn-secondary"><i class="fa-solid fa-copy"></i>
+                        Copy</button>
                 </div>
                 <pre id="codeOutput"></pre>
             </section>
@@ -253,6 +287,10 @@
                 <div class="actions">
                     <input id="sqlWhere" placeholder="Condition (e.g. id > 5)" style="flex: 1;" />
                     <button onclick="buildSql()">Build SQL</button>
+                    <button onclick="clearContent('sqlTable', 'sqlColumns', 'sqlWhere', 'databaseOutput')"
+                        class="btn-secondary"><i class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('databaseOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-copy"></i> Copy</button>
                 </div>
                 <pre id="databaseOutput"></pre>
             </section>
@@ -265,6 +303,10 @@
                     <input id="dockerBase" placeholder="Base Image (node:18)" style="flex: 1;" />
                     <input id="dockerPort" placeholder="Expose Port (3000)" style="width: 150px;" />
                     <button onclick="generateDockerfile()">Generate</button>
+                    <button onclick="clearContent('dockerBase', 'dockerPort', 'devopsOutput')" class="btn-secondary"><i
+                            class="fa-solid fa-trash"></i> Clear</button>
+                    <button onclick="copyContent('devopsOutput')" class="btn-secondary"><i class="fa-solid fa-copy"></i>
+                        Copy</button>
                 </div>
                 <pre id="devopsOutput"></pre>
             </section>
