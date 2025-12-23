@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>DevTools Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>DevTools</span>
+            </div>
+
+            <nav>
+                <button class="nav-btn active" data-tool="json">
+                    <i class="fa-solid fa-code"></i>
+                    <span>JSON Tools</span>
+                </button>
+                <button class="nav-btn" data-tool="encoding">
+                    <i class="fa-solid fa-file-code"></i>
+                    <span>Encoding</span>
+                </button>
+                <button class="nav-btn" data-tool="text">
+                    <i class="fa-solid fa-font"></i>
+                    <span>Text Utils</span>
+                </button>
+                <button class="nav-btn" data-tool="security">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Security</span>
+                </button>
+                <button class="nav-btn" data-tool="api">
+                    <i class="fa-solid fa-cloud"></i>
+                    <span>API Tools</span>
+                </button>
+                <button class="nav-btn" data-tool="datetime">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Date & Time</span>
+                </button>
+                <button class="nav-btn" data-tool="frontend">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Frontend</span>
+                </button>
+                <button class="nav-btn" data-tool="code">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Code Utils</span>
+                </button>
+                <button class="nav-btn" data-tool="database">
+                    <i class="fa-solid fa-database"></i>
+                    <span>Database</span>
+                </button>
+                <button class="nav-btn" data-tool="devops">
+                    <i class="fa-solid fa-server"></i>
+                    <span>DevOps</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+
+            <!-- JSON TOOLS -->
+            <section id="json" class="tool-section active">
+                <h1>JSON Tools</h1>
+                <textarea id="jsonInput" placeholder="Paste JSON here..."></textarea>
+                <div class="actions">
+                    <button onclick="formatJSON()"><i class="fa-solid fa-align-left"></i> Beautify</button>
+                    <button onclick="minifyJSON()"><i class="fa-solid fa-compress"></i> Minify</button>
+                    <button onclick="validateJSON()"><i class="fa-solid fa-check"></i> Validate</button>
+                </div>
+                <pre id="jsonOutput"></pre>
+            </section>
+
+            <!-- Encoding Tools -->
+            <section id="encoding" class="tool-section">
+                <h1>Encoding & Decoding</h1>
+                <textarea id="encodingInput" placeholder="Enter text here..."></textarea>
+                <div class="actions">
+                    <button onclick="base64Encode()">Base64 Encode</button>
+                    <button onclick="base64Decode()">Base64 Decode</button>
+                    <button onclick="urlEncode()">URL Encode</button>
+                    <button onclick="urlDecode()">URL Decode</button>
+                    <button onclick="htmlEncode()">HTML Encode</button>
+                    <button onclick="htmlDecode()">HTML Decode</button>
+                </div>
+                <pre id="encodingOutput"></pre>
+            </section>
+
+            <!-- Text Utilities -->
+            <section id="text" class="tool-section">
+                <h1>Text Utilities</h1>
+                <textarea id="textInput" placeholder="Enter text here..."></textarea>
+                <div class="actions">
+                    <button onclick="toUpper()">UPPERCASE</button>
+                    <button onclick="toLower()">lowercase</button>
+                    <button onclick="removeExtraSpaces()">Trim Spaces</button>
+                    <button onclick="sortLines()">Sort Lines</button>
+                    <button onclick="addLineNumbers()">Add Line Numbers</button>
+                    <button onclick="wordCharCount()">Count Stats</button>
+                </div>
+
+                <h3>Find & Replace</h3>
+                <div class="actions">
+                    <input id="findText" placeholder="Find" style="width: auto; flex: 1;" />
+                    <input id="replaceText" placeholder="Replace" style="width: auto; flex: 1;" />
+                    <button onclick="findAndReplace()">Replace All</button>
+                </div>
+
+                <h3>Regex Tester</h3>
+                <div class="actions">
+                    <input id="regexPattern" placeholder="Regex Pattern (e.g. \d+)" style="flex: 1;" />
+                    <button onclick="testRegex()">Test Regex</button>
+                </div>
+
+                <pre id="textOutput"></pre>
+            </section>
+
+            <!-- Security Tools -->
+            <section id="security" class="tool-section">
+                <h1>Security & Cryptography</h1>
+                <textarea id="securityInput" placeholder="Enter input text..."></textarea>
+                <div class="actions">
+                    <button onclick="generateHash('SHA-256')">SHA-256</button>
+                    <button onclick="generateHash('SHA-1')">SHA-1</button>
+                    <button onclick="generateMD5()">MD5</button>
+                </div>
+
+                <h3>Password Strength</h3>
+                <div class="actions">
+                    <input id="passwordInput" type="password" placeholder="Enter password" style="flex: 1;" />
+                    <button onclick="checkPasswordStrength()">Check Strength</button>
+                </div>
+
+                <h3>JWT Decoder</h3>
+                <div class="actions">
+                    <textarea id="jwtInput" placeholder="Paste JWT here..." style="height: 100px;"></textarea>
+                </div>
+                <div class="actions">
+                    <button onclick="decodeJWT()">Decode JWT</button>
+                </div>
+
+                <pre id="securityOutput"></pre>
+            </section>
+
+            <!-- API Tools -->
+            <section id="api" class="tool-section">
+                <h1>API & Network</h1>
+
+                <h3>REST API Tester</h3>
+                <div class="actions">
+                    <select id="apiMethod" style="width: 100px;">
+                        <option>GET</option>
+                        <option>POST</option>
+                        <option>PUT</option>
+                        <option>DELETE</option>
+                    </select>
+                    <input id="apiUrl" placeholder="https://api.example.com/data" style="flex: 1;" />
+                </div>
+                <textarea id="apiBody" placeholder="Request Body (JSON)"
+                    style="height: 120px; margin-bottom: 10px;"></textarea>
+                <button onclick="callApi()" style="width: 100%;">Send Request</button>
+
+                <h3>JSON Response Viewer</h3>
+                <pre id="apiOutput" style="min-height: 200px;"></pre>
+            </section>
+
+            <!-- DateTime Tools -->
+            <section id="datetime" class="tool-section">
+                <h1>Date & Time</h1>
+
+                <h3>Unix Timestamp</h3>
+                <div class="actions">
+                    <input id="unixInput" placeholder="Unix timestamp" style="flex: 1;" />
+                    <button onclick="unixToDate()">To Date</button>
+                    <button onclick="dateToUnix()">Now to Unix</button>
+                </div>
+
+                <h3>ISO-8601</h3>
+                <div class="actions">
+                    <button onclick="generateISO()">Generate Current ISO</button>
+                </div>
+
+                <pre id="datetimeOutput"></pre>
+            </section>
+
+            <!-- Frontend Tools -->
+            <section id="frontend" class="tool-section">
+                <h1>Frontend Tools</h1>
+
+                <h3>CSS Utilities</h3>
+                <textarea id="cssInput" placeholder="Paste CSS here..."></textarea>
+                <div class="actions">
+                    <button onclick="beautifyCSS()">Beautify</button>
+                    <button onclick="minifyCSS()">Minify</button>
+                </div>
+
+                <h3>Color Converter</h3>
+                <div class="actions">
+                    <input type="color" id="colorPicker" value="#3b82f6"
+                        style="width: 60px; height: 40px; padding: 0;" />
+                    <button onclick="pickColor()">Get Hex/RGB</button>
+                    <input id="hexInput" placeholder="#ff0000" style="flex: 1;" />
+                </div>
+
+                <h3>Gradient Generator</h3>
+                <div class="actions">
+                    <input type="color" id="grad1" value="#3b82f6" style="width: 60px; height: 40px;" />
+                    <input type="color" id="grad2" value="#9333ea" style="width: 60px; height: 40px;" />
+                    <button onclick="generateGradient()">Generate</button>
+                </div>
+                <div id="gradientPreview" class="preview-box">Preview</div>
+
+                <pre id="frontendOutput"></pre>
+            </section>
+
+            <!-- Code Utils -->
+            <section id="code" class="tool-section">
+                <h1>Code Utilities</h1>
+                <textarea id="codeInput" placeholder="Paste code..."></textarea>
+                <div class="actions">
+                    <button onclick="minifyCode()">Minify (Simple)</button>
+                    <button onclick="obfuscateCode()">Obfuscate</button>
+                </div>
+                <pre id="codeOutput"></pre>
+            </section>
+
+            <!-- Database Tools -->
+            <section id="database" class="tool-section">
+                <h1>Database Tools</h1>
+                <h3>SQL Query Builder</h3>
+                <div class="actions">
+                    <input id="sqlTable" placeholder="Table" style="flex: 1;" />
+                    <input id="sqlColumns" placeholder="Columns (*)" style="flex: 1;" />
+                </div>
+                <div class="actions">
+                    <input id="sqlWhere" placeholder="Condition (e.g. id > 5)" style="flex: 1;" />
+                    <button onclick="buildSql()">Build SQL</button>
+                </div>
+                <pre id="databaseOutput"></pre>
+            </section>
+
+            <!-- DevOps Tools -->
+            <section id="devops" class="tool-section">
+                <h1>DevOps Tools</h1>
+                <h3>Dockerfile Gen</h3>
+                <div class="actions">
+                    <input id="dockerBase" placeholder="Base Image (node:18)" style="flex: 1;" />
+                    <input id="dockerPort" placeholder="Expose Port (3000)" style="width: 150px;" />
+                    <button onclick="generateDockerfile()">Generate</button>
+                </div>
+                <pre id="devopsOutput"></pre>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/tools/json.js"></script>
+    <script src="js/tools/encoding.js"></script>
+    <script src="js/tools/text.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="js/tools/security.js"></script>
+    <script src="js/tools/api.js"></script>
+    <script src="js/tools/datetime.js"></script>
+    <script src="js/tools/frontend.js"></script>
+    <script src="js/tools/code.js"></script>
+    <script src="js/tools/database.js"></script>
+    <script src="js/tools/devops.js"></script>
+
+</body>
+
+</html>
