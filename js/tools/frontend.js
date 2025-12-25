@@ -18,7 +18,16 @@ function minifyCSS() {
 
 // ---------- COLOR ----------
 function pickColor() {
-    feOut(document.getElementById('colorPicker').value);
+    const hex = document.getElementById('colorPicker').value;
+    const r = parseInt(hex.substring(1, 3), 16);
+    const g = parseInt(hex.substring(3, 5), 16);
+    const b = parseInt(hex.substring(5, 7), 16);
+
+    // Update the hex input if user wants to copy from there
+    const hexInput = document.getElementById('hexInput');
+    if (hexInput) hexInput.value = hex;
+
+    feOut(`HEX: ${hex}\nRGB: rgb(${r}, ${g}, ${b})`);
 }
 
 function hexToRgb() {

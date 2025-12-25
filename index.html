@@ -23,15 +23,39 @@
 
     <div class="app-container">
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
+        <!-- Dark Top Navbar -->
+        <header class="top-navbar">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="brand">
                 <i class="fa-solid fa-layer-group"></i>
-                <span>DevTools</span>
+                <span>DevTools Pro</span>
+            </div>
+            <div class="navbar-actions">
+                <a href="https://github.com" target="_blank" class="nav-icon"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </header>
+
+        <!-- Offcanvas Sidebar -->
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+        <aside class="sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>DevTools</span>
+                </div>
+                <button class="close-sidebar" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-times"></i>
+                </button>
             </div>
 
             <nav>
-                <button class="nav-btn active" data-tool="json">
+                <button class="nav-btn active" data-tool="home">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Home</span>
+                </button>
+                <button class="nav-btn" data-tool="json">
                     <i class="fa-solid fa-code"></i>
                     <span>JSON Tools</span>
                 </button>
@@ -77,8 +101,65 @@
         <!-- Main Content -->
         <main class="content">
 
+            <!-- HOME / DASHBOARD -->
+            <section id="home" class="tool-section active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1>Welcome to <span class="gradient-text">DevTools Pro</span></h1>
+                        <p class="subtitle">The ultimate developer utility suite. Fast, secure, and offline-ready.</p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-val">15+</span>
+                                <span class="stat-label">Tools</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">0ms</span>
+                                <span class="stat-label">Latency</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-val">100%</span>
+                                <span class="stat-label">Local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=json]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-code"></i></div>
+                        <h3>JSON Tools</h3>
+                        <p>Format, minify, and validate JSON data instantly.</p>
+                    </div>
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=encoding]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-file-code"></i></div>
+                        <h3>Encoders</h3>
+                        <p>Base64, URL, and HTML encoding/decoding.</p>
+                    </div>
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=security]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Security</h3>
+                        <p>Generate hashes, check password strength, and decode JWTs.</p>
+                    </div>
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=api]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-cloud"></i></div>
+                        <h3>API Tester</h3>
+                        <p>Test REST endpoints and view responses directly.</p>
+                    </div>
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=datetime]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-clock"></i></div>
+                        <h3>Date & Time</h3>
+                        <p>Convert Unix timestamps and generate ISO dates.</p>
+                    </div>
+                    <div class="feature-card" onclick="document.querySelector('[data-tool=frontend]').click()">
+                        <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
+                        <h3>Frontend</h3>
+                        <p>CSS formatters, color pickers, and gradient generators.</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- JSON TOOLS -->
-            <section id="json" class="tool-section active">
+            <section id="json" class="tool-section">
                 <h1>JSON Tools</h1>
                 <textarea id="jsonInput" placeholder="Paste JSON here..."></textarea>
                 <div class="actions">
@@ -93,23 +174,144 @@
                 <pre id="jsonOutput"></pre>
             </section>
 
-            <!-- Encoding Tools -->
+            <!-- Base64 Guru (Encoding) -->
             <section id="encoding" class="tool-section">
-                <h1>Encoding & Decoding</h1>
-                <textarea id="encodingInput" placeholder="Enter text here..."></textarea>
-                <div class="actions">
-                    <button onclick="base64Encode()">Base64 Encode</button>
-                    <button onclick="base64Decode()">Base64 Decode</button>
-                    <button onclick="urlEncode()">URL Encode</button>
-                    <button onclick="urlDecode()">URL Decode</button>
-                    <button onclick="htmlEncode()">HTML Encode</button>
-                    <button onclick="htmlDecode()">HTML Decode</button>
-                    <button onclick="clearContent('encodingInput', 'encodingOutput')" class="btn-secondary"><i
-                            class="fa-solid fa-trash"></i> Clear</button>
-                    <button onclick="copyContent('encodingOutput')" class="btn-secondary"><i
-                            class="fa-solid fa-copy"></i> Copy</button>
+                <h1>Base64 Guru</h1>
+
+                <div class="enc-tabs">
+                    <button class="enc-tab-btn active" onclick="switchEncTab('encoders')">Encoders</button>
+                    <button class="enc-tab-btn" onclick="switchEncTab('decoders')">Decoders</button>
+                    <button class="enc-tab-btn" onclick="switchEncTab('tools')">Tools</button>
                 </div>
-                <pre id="encodingOutput"></pre>
+
+                <!-- ENCODERS TAB -->
+                <div id="encoders" class="enc-tab-content active">
+                    <div class="options-bar">
+                        <label>Source:</label>
+                        <select id="encSourceType" onchange="toggleEncInput()" style="width: auto;">
+                            <option value="text">Text (String)</option>
+                            <option value="file">File (Image/Audio/PDF...)</option>
+                            <option value="hex">Hex String</option>
+                            <option value="url">URL</option>
+                            <option value="html">HTML</option>
+                        </select>
+                    </div>
+
+                    <!-- Text Input Container -->
+                    <div id="encTextInputArea">
+                        <textarea id="encTextInput" placeholder="Type or paste content here..."
+                            style="min-height: 150px;"></textarea>
+                    </div>
+
+                    <!-- File Input Container -->
+                    <div id="encFileInputArea" class="hidden">
+                        <div class="drop-zone" id="encDropZone"
+                            onclick="document.getElementById('encFileInput').click()">
+                            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <p>Drag file here or click to browse</p>
+                            <div id="encFileName" style="margin-top: 1rem; color: var(--primary); font-weight: bold;">
+                            </div>
+                            <input type="file" id="encFileInput" hidden onchange="handleFileSelect(this)">
+                        </div>
+                    </div>
+
+                    <div class="actions"
+                        style="background: transparent; border: none; padding: 0.5rem 0; justify-content: flex-start;">
+                        <input type="checkbox" id="encDataUri" style="width: auto; margin-right: 0.5rem;">
+                        <label for="encDataUri" style="cursor: pointer; user-select: none;">Format as Data URI (e.g.
+                            data:image/png;base64,...)</label>
+                    </div>
+
+                    <button onclick="performEncoding()" class="actions"
+                        style="width: 100%; justify-content: center; background: var(--primary); color: white; cursor: pointer; border: none; padding: 1rem; font-size: 1rem;">
+                        <i class="fa-solid fa-bolt"></i> Encode to Base64
+                    </button>
+
+                    <h3 style="margin-top: 2rem;">Encoded Output</h3>
+                    <textarea id="encOutput" readonly placeholder="Result will appear here..."
+                        style="min-height: 150px; color: var(--success);"></textarea>
+
+                    <div class="actions">
+                        <button onclick="copyContent('encOutput')"><i class="fa-solid fa-copy"></i> Copy</button>
+                        <button onclick="downloadEncOutput()" class="btn-secondary"><i class="fa-solid fa-download"></i>
+                            Download as .txt</button>
+                    </div>
+                </div>
+
+                <!-- DECODERS TAB -->
+                <div id="decoders" class="enc-tab-content">
+                    <textarea id="decInput" placeholder="Paste Base64 string here..."
+                        style="min-height: 150px;"></textarea>
+
+                    <div class="options-bar">
+                        <label>Decode As:</label>
+                        <select id="decTargetType" style="width: auto;">
+                            <option value="auto">Auto-Detect</option>
+                            <option value="text">Text (UTF-8)</option>
+                            <option value="image">Image</option>
+                            <option value="audio">Audio</option>
+                            <option value="video">Video</option>
+                            <option value="pdf">PDF</option>
+                            <option value="hex">Hex String</option>
+                        </select>
+                    </div>
+
+                    <button onclick="performDecoding()" class="actions"
+                        style="width: 100%; justify-content: center; background: var(--secondary); color: white; cursor: pointer; border: none; padding: 1rem; font-size: 1rem;">
+                        <i class="fa-solid fa-unlock"></i> Decode Base64
+                    </button>
+
+                    <h3 style="margin-top: 2rem;">Decoded Result</h3>
+
+                    <!-- Preview Area for Media -->
+                    <div id="decPreviewArea" class="preview-box hidden" style="flex-direction: column; gap: 1rem;">
+                    </div>
+
+                    <!-- Text Area for Text/Hex -->
+                    <textarea id="decTextOutput" class="hidden" readonly
+                        style="min-height: 150px; color: var(--success);"></textarea>
+                </div>
+
+                <!-- TOOLS TAB -->
+                <div id="toolsTab" class="enc-tab-content">
+                    <div class="tool-card" onclick="repairBase64()">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-wrench" style="font-size: 1.5rem; color: var(--warning);"></i>
+                            <div>
+                                <h3 style="margin: 0;">Repair & Normalize</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Removes whitespaces,
+                                    newlines, and fixes padding.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card" onclick="checkBase64()">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-magnifying-glass"
+                                style="font-size: 1.5rem; color: var(--success);"></i>
+                            <div>
+                                <h3 style="margin: 0;">Validate Base64</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Checks if the string is a
+                                    valid Base64 format.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card"
+                        onclick="window.scrollTo(0, 0); switchEncTab('encoders'); document.getElementById('encSourceType').value='text'; toggleEncInput();">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fa-solid fa-link" style="font-size: 1.5rem; color: var(--primary);"></i>
+                            <div>
+                                <h3 style="margin: 0;">Data URI Converter</h3>
+                                <p style="margin: 0.5rem 0 0 0; color: var(--text-secondary);">Convert any file or text
+                                    to a Data URI (e.g. data:image/png;base64,...)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Tool Output</h3>
+                    <textarea id="toolOutput" placeholder="Output from tools..." readonly></textarea>
+                </div>
             </section>
 
             <!-- Text Utilities -->
@@ -231,34 +433,78 @@
             <section id="frontend" class="tool-section">
                 <h1>Frontend Tools</h1>
 
-                <h3>CSS Utilities</h3>
-                <textarea id="cssInput" placeholder="Paste CSS here..."></textarea>
-                <div class="actions">
-                    <button onclick="beautifyCSS()">Beautify</button>
-                    <button onclick="minifyCSS()">Minify</button>
-                    <button onclick="clearContent('cssInput', 'frontendOutput')" class="btn-secondary"><i
-                            class="fa-solid fa-trash"></i> Clear</button>
-                    <button onclick="copyContent('frontendOutput')" class="btn-secondary"><i
-                            class="fa-solid fa-copy"></i> Copy</button>
-                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
 
-                <h3>Color Converter</h3>
-                <div class="actions">
-                    <input type="color" id="colorPicker" value="#3b82f6"
-                        style="width: 60px; height: 40px; padding: 0;" />
-                    <button onclick="pickColor()">Get Hex/RGB</button>
-                    <input id="hexInput" placeholder="#ff0000" style="flex: 1;" />
+                    <div>
+                        <h3>CSS Utilities</h3>
+                        <textarea id="cssInput" placeholder="Paste CSS here..." style="min-height: 120px;"></textarea>
+                        <div class="actions">
+                            <button onclick="beautifyCSS()">Beautify</button>
+                            <button onclick="minifyCSS()">Minify</button>
+                            <button onclick="clearContent('cssInput', 'frontendOutput')" class="btn-secondary"><i
+                                    class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Color Converter</h3>
+                        <div class="actions" style="margin-top: 0;">
+                            <input type="color" id="colorPicker" value="#8b5cf6"
+                                style="width: 50px; height: 50px; padding: 0; cursor: pointer;" />
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input id="hexInput" placeholder="#8b5cf6" />
+                                    <button onclick="pickColor()">Hex &to; RGB</button>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input id="rgbInput" placeholder="rgb(139, 92, 246)" />
+                                    <button onclick="rgbToHex()">RGB &to; Hex</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <h3>Gradient Generator</h3>
                 <div class="actions">
-                    <input type="color" id="grad1" value="#3b82f6" style="width: 60px; height: 40px;" />
-                    <input type="color" id="grad2" value="#9333ea" style="width: 60px; height: 40px;" />
-                    <button onclick="generateGradient()">Generate</button>
+                    <input type="color" id="grad1" value="#8b5cf6" style="width: 60px; height: 40px;" />
+                    <input type="color" id="grad2" value="#06b6d4" style="width: 60px; height: 40px;" />
+                    <button onclick="generateGradient()">Generate Linear Gradient</button>
                 </div>
-                <div id="gradientPreview" class="preview-box">Preview</div>
+                <div id="gradientPreview" class="preview-box">Gradient Preview</div>
 
-                <pre id="frontendOutput"></pre>
+                <h3>Box Shadow Generator</h3>
+                <div class="actions">
+                    <input id="shadowInput" placeholder="10px 10px 5px #888888"
+                        value="10px 10px 15px rgba(0,0,0,0.3)" />
+                    <button onclick="applyShadow()">Apply Shadow</button>
+                </div>
+                <div id="shadowPreview" class="preview-box" style="transition: box-shadow 0.3s;">Box Shadow Preview
+                </div>
+
+                <h3>Font Preview</h3>
+                <div class="actions">
+                    <select id="fontSelect">
+                        <option value="'Outfit', sans-serif">Outfit (Sans)</option>
+                        <option value="'Fira Code', monospace">Fira Code (Mono)</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="cursive">Cursive</option>
+                    </select>
+                    <input id="fontText" placeholder="Type something..." />
+                    <button onclick="previewFont()">Preview</button>
+                </div>
+                <div id="fontPreview" class="preview-box" style="font-size: 1.5rem;">Sample Text Preview</div>
+
+                <div style="margin-top: 2rem;">
+                    <div class="actions">
+                        <button onclick="copyContent('frontendOutput')" class="btn-secondary"
+                            style="width: 100%; justify-content: center;"><i class="fa-solid fa-copy"></i> Copy Output
+                            Result</button>
+                    </div>
+                    <pre id="frontendOutput"></pre>
+                </div>
             </section>
 
             <!-- Code Utils -->
